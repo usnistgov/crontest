@@ -1,0 +1,23 @@
+db:
+  image: library/postgres:9.6.5
+  restart: always
+  environment:
+      POSTGRES_PASSWORD: example
+  volumes:
+    - ./DATA/pg/data:/var/lib/postgresql/data
+
+cron:
+  build: .
+  restart: always
+  links:
+    - db
+  volumes:
+    - ./DATA/backup:/backup
+
+adminer:
+  image: adminer
+  restart: always
+  links:
+    - db
+  ports:
+    - 8080:8080
