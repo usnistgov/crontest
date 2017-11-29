@@ -7,12 +7,17 @@ db:
     - ./DATA/pg/data:/var/lib/postgresql/data
 
 cron:
-  build: .
+  build: docker-pg_dump
   restart: always
+  environment:
+    PGUSER: postgres
+    PGPASSWORD: example
+    CRON_SCHEDULE: 0 1 * * *
   links:
     - db
   volumes:
-    - ./DATA/backup:/backup
+    - ./DATA/dump:/dump
+  command: dump-cron
 
 adminer:
   image: adminer
