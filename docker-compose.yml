@@ -12,7 +12,8 @@ cron:
   environment:
     PGUSER: postgres
     PGPASSWORD: example
-    CRON_SCHEDULE: 0 1 * * *
+    PGDB: testing
+    CRON_SCHEDULE: "0 1 * * *"
   links:
     - db
   volumes:
